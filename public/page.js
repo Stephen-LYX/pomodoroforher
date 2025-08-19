@@ -35,6 +35,7 @@ function refreshList() {
         const xicon = document.createElement("i");
         xicon.classList.add("fa-solid", "fa-xmark");
         xicon.style.cursor = "pointer";
+
         li.appendChild(xicon);
 
         listItems.appendChild(li);
@@ -69,8 +70,8 @@ window.onload = function() {
 
 
 
-// Section 2 --- Pomodoro Clock/Break Timer/Clock //
-//Clock
+// Section 2 --- Pomodoro/Break Timer/
+
 const display = document.getElementById('display');
 const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
@@ -81,22 +82,13 @@ const pomodoroInput = document.getElementById('pomodoroInput');
 const shortInput = document.getElementById('shortInput');
 const longInput = document.getElementById('longInput');
 
-let mode = 'clock';
+let mode = 'pomodoro';
 let timer = null;
 let totalTime = 0;
 let remaining = 0;
 let isRunning = false;
 
-// 12hr live clock
-function updateClock() {
-    const now = new Date();
-    let hrs = now.getHours();
-    const mins = String(now.getMinutes()).padStart(2, '0');
-    const secs = String(now.getSeconds()).padStart(2, '0');
-    const ampm = hrs >= 12 ? 'PM' : 'AM';
-    hrs = hrs % 12 || 12;
-    display.textContent = `${hrs.toString().padStart(2,'0')}:${mins}:${secs} ${ampm}`;
-}
+
 
 // Format HH:MM:SS
 function updateDisplay(secs) {
@@ -113,10 +105,7 @@ function switchMode(newMode) {
   
     setTimeout(() => {
         mode = newMode;
-        if (mode === 'clock') {
-        updateClock();
-        timer = setInterval(updateClock, 1000);
-        } else {
+
         const customValue = {
             pomodoro: +pomodoroInput.value || 30,
             short: +shortInput.value || 5,
@@ -125,13 +114,13 @@ function switchMode(newMode) {
         totalTime = customValue[mode] * 60;
         remaining = totalTime;
         updateDisplay(remaining);
-        }
+        
         display.style.opacity = 1;
     }, 300);
 }
 
 function startCountdown() {
-    if (mode === 'clock' || isRunning) return;
+    if (mode === 'pomodoro' || isRunning) return;
     isRunning = true;
     timer = setInterval(() => {
         if (remaining <= 0) {
@@ -151,7 +140,7 @@ function pauseCountdown() {
 }
 
 function resetCountdown() {
-    if (mode === 'clock') return;
+    if (mode === 'pomodoro') return;
     remaining = totalTime;
     updateDisplay(remaining);
 }
@@ -164,7 +153,7 @@ startBtn.addEventListener('click', startCountdown);
 pauseBtn.addEventListener('click', pauseCountdown);
 resetBtn.addEventListener('click', resetCountdown);
 
-switchMode('clock');
+switchMode('pomodoro');
 
 
 // Spotify 
