@@ -1,0 +1,307 @@
+body {
+    background-color: #cdcfc0;
+}
+
+#mainContainer {
+    display: grid;
+    height: 600px;
+    width: auto;
+    grid-template-areas: 
+    "list timer"
+    "list settings"
+    "spotify settings"
+    "spotify settings"
+    ;
+    place-content: center;
+    column-gap:28px;
+    row-gap: 10px;
+}
+
+#mainContainer > div {
+    display: grid;
+    /* clamp(min, preferred, max) */
+    font-size: clamp(1.5rem, 2vw, 5rem);
+    border-style: none;
+    border-radius: 20px;
+}
+
+/* Section: To-Do-List */
+.to_do_list {
+    background-color: #f1ebe5;
+    grid-area: list;
+    width: 350px;
+    height: 350px;
+    grid-template-rows: auto 1fr;
+    outline: none;
+    border-style: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.Tasks {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f1ebe5;
+    border-radius: 20px; 
+    border: 1.5px solid;
+    margin: 20px; 
+}
+
+#input-box {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    background-color: transparent;
+    width: 200px;
+    border: none;
+    outline: none;
+    margin-left: 5px;
+}
+
+.Tasks > button {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    background-color: #918151;
+    border-radius: 20px;
+    border: none;
+    width: 70px;
+    outline: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.to_do_list > ul {
+    font-size: 20px;
+    margin-top: 0;
+}
+
+#listItems {
+    max-height: 245px;
+    padding-left: 0;
+    overflow-y: auto;
+    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* for Chrome, Safari, and Opera */
+#yourElement::-webkit-scrollbar {
+    display: none; 
+}
+
+ul li{
+    padding: 8px 4px 8px 45px;
+    list-style: none;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+
+
+ul li::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 20px;
+    background-image: url(/src/pages/icons/wiltplant.png);
+    background-size: cover;
+    background-position: center;
+    top: 10px;
+    left: 20px;
+}
+
+ul li i {
+    position: absolute;
+    right: 18px;     /* distance from the right edge */
+    top: 50%;        /* vertical center */
+    transform: translateY(-50%);  /* perfect vertical centering */
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px 8px 6px 8px;
+    border-radius: 50%;
+}
+
+ul li i.fa-solid.fa-xmark::before {
+    width: 50px;
+    height: 50px;
+}
+
+ul li i:hover {
+    background-color: #c5c1bb
+}
+
+ul li.completion {
+    text-decoration: line-through;
+}
+
+ul li.completion::before {
+    background-image: url(/src/pages/icons/sunflower.png);
+}
+
+/* Section: Time/Stopwatch */
+.timer {
+    text-align: center;
+    background: #999b85;
+    border-radius: 10px;
+    width: 500px;
+    height: 300px;
+    padding: 10px;
+}
+
+.display {
+    font-size: 5.8rem;
+    font-family: 'Bantayog Semilight', sans-serif;
+    height: 120px;
+    transition: all 0.5s ease-in-out;
+    padding-top: 10px;
+}
+.clockContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mode-buttons{
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.mode, .controls button {
+    flex: 1;
+    margin: 0 0.3rem;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    background: grey;
+    color: #cdcfc0;
+    font-weight: bold;
+    cursor: pointer;
+    height: 60px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+
+#startBtn, #pauseBtn, #resetBtn {
+    height: 45px;
+    width: 65px;
+}
+
+button:hover {
+    background: #666;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform:scale(0.95);
+}
+
+.custom-inputs {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.custom-inputs label {
+    display: flex;
+    color: #ccc;
+    justify-content: space-between;
+}
+
+.custom-inputs input {
+    width: 4rem;
+    padding: 0.2rem;
+    border: none;
+    border-radius: 3px;
+}
+/* END HERE FOR TIMER CONTAINER */
+
+/* Spotify */
+.spotify {
+    grid-area: spotify;
+    padding-top: 10px;
+}
+
+/* settings */
+.settingsContainer {
+    grid-area: settings;
+    width: 500px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings {
+    opacity: 0;
+    background-color: grey;
+    position: fixed;
+    width: 400px;
+    height: 300px;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3 ease-in-out;
+    z-index: -1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.settings.open {
+    opacity: 1;
+    z-index: 999;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.3); /* subtle dark tint */
+    backdrop-filter: blur(60px);           /* actual blur effect */
+    z-index: 998;                         /* sits just below .settings.open */
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;    
+}
+
+.headingFea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+@media only screen and (max-width: 775px) {
+  #mainContainer {
+    min-height: 1100px;
+    grid-template-areas: 
+      "list"
+      "timer"
+      "settings"
+      "spotify";
+    grid-template-columns: 1fr;
+  }
+
+  .to_do_list,
+  .timer,
+  .settings,
+  .spotify {
+    width: 90%;
+    margin: 0 auto;
+  }
+}

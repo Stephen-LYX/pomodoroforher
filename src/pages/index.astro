@@ -1,11 +1,86 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://db.onlinewebfonts.com/c/df97e896249fcf7b4c545159af5cf1bb?family=Bantayog+Semilight" rel="stylesheet" type="text/css" />
 
-<Layout>
-	<Welcome />
-</Layout>
+    <title>Pomodoro For Her</title>
+
+	<link rel="stylesheet" href="/page.css">
+  </head>
+
+  <body>
+    <div id="mainContainer">    
+        <div class="to_do_list">
+            <div class="Tasks">   
+                <input type="text" id="input-box" placeholder="Add a task...">
+                <button onclick="enterBtn()">Add</button>
+            </div> 
+            <ul id="listItems">
+                <!-- <li class="completion">Task 1</li>
+                <li>Task 2</li>
+                <li>Task 3</li> -->
+            </ul>
+        </div>
+
+        <!--Section 2 --- Pomodoro Clock/Break Timer/Clock-->
+        <div class="timer">
+            <div class="clockContainer">
+                <div class="display" id="display">--:--:--</div>
+            </div>
+
+            <div class="mode-buttons">
+                <button class="mode" data-mode="clock">Clock</button>
+                <button class="mode" data-mode="pomodoro">Pomodoro</button>
+                <button class="mode" data-mode="short">Short Break</button>
+                <button class="mode" data-mode="long">Long Break</button>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn">Start</button> 
+                <button id="pauseBtn">Pause</button>   
+                <button id="resetBtn">Reset</button>        
+            </div>
+
+        </div>
+
+        <div class="spotify">
+
+            <iframe id="spotifyPlayer" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWSpwq3LiO?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <div class="settingsContainer" >
+
+            <i class="fa-solid fa-gear" id="openSettings"></i>
+            <div class="overlay" id="overlay">
+            <div class="settings" id="settings">
+                <div class="settingsContent">
+
+                    <div>Timer</div>
+                    <div class="custom-inputs">
+                        <label>Pomodoro: <input type="number" id="pomodoroInput" placeholder="Minutes" /></label>
+                        <label>Short Break: <input type="number" id="shortInput" placeholder="Minutes" /></label>
+                        <label>Long Break: <input type="number" id="longInput" placeholder="Minutes" /></label>
+                    </div>
+
+                    <label class="custom-inputs">Spotify Playlist URL:
+                        <input type="text" id="spotifyInput" placeholder="Paste Spotify playlist URL here" />
+                        <button onclick="updateSpotify()">Load</button>
+                    </label>                    
+
+                    <button id="closeSettings">close</button>
+                </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+	<script src="/page.js" is:inline></script>
+  </body>
+
+</html>
