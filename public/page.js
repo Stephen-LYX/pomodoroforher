@@ -8,7 +8,7 @@ function enterBtn() {
     if(inputBox.value===""){
         alert("Please write something \u{1F97A}")
     } else {
-        itemArray.push(inputBox.value);
+        itemArray.push({ text: inputBox.value, completed: false });
         localStorage.setItem("taskList", JSON.stringify(itemArray));
         inputBox.value = "";
         refreshList();
@@ -17,15 +17,27 @@ function enterBtn() {
 
 function refreshList() {
     listItems.innerHTML = "";
-    itemArray.forEach((item) => {
+    itemArray.forEach((item, index) => {
         const li = document.createElement("li");
-        li.innerHTML = item;
-        listItems.appendChild(li);
+        li.innerHTML = item.text;
+
+        if (item.completed) {
+            li.classList.add("completion")
+        }
+
+        // Toggle completion on click
+        li.addEventListener("click", () => {
+            itemArray[index].completed = !itemArray[index].completed;
+            localStorage.setItem("taskList", JSON.stringify(itemArray));
+            refreshList();
+        });
 
         const xicon = document.createElement("i");
         xicon.classList.add("fa-solid", "fa-xmark");
         xicon.style.cursor = "pointer";
         li.appendChild(xicon);
+
+        listItems.appendChild(li);
     })
 
     deleteList();
@@ -43,13 +55,16 @@ function deleteList() {
 }
 
 function retrieveList() {
-    JSON.parse(localStorage.getItem("taskList", itemArray));
+    const stored = localStorage.getItem("taskList");
+    
+    if (stored) {
+        itemArray.splice(0, itemArray.length, ...JSON.parse(stored));
+    }
 }
 
 window.onload = function() {
-    refreshList();
-    deleteList();
     retrieveList();
+    refreshList();
 }
 
 
